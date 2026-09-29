@@ -358,14 +358,39 @@ export const handler: Handler = async (event) => {
     // 10. AI 回答 + Quick Reply
     // -----------------------------
     if (aiResult) {
-      await lineClient.replyMessage(
-        lineEvent.replyToken,
+  await lineClient.replyMessage(lineEvent.replyToken, {
+    type: 'text',
+    text: aiResult,
+    quickReply: {
+      items: [
         {
-          type: 'text',
-          text: aiResult,
-          quickReply:
-            resultQuickReplies
+          type: 'action',
+          action: {
+            type: 'message',
+            label: '已解決',
+            text: '已解決'
+          }
+        },
+        {
+          type: 'action',
+          action: {
+            type: 'message',
+            label: '仍有問題',
+            text: '仍有問題'
+          }
+        },
+        {
+          type: 'action',
+          action: {
+            type: 'message',
+            label: '轉真人客服',
+            text: '轉真人客服'
+          }
         }
+      ]
+    }
+  });
+}
       );
     }
   }
