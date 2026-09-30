@@ -681,18 +681,31 @@ export const handler: Handler = async (event) => {
       // ==============================
 
       if (
-        userMessage === '呼叫AI客服' ||
-        userMessage === 'AI客服' ||
-        userMessage === 'AI 客服'
-      ) {
-        await lineClient.replyMessage(
-          lineEvent.replyToken,
-          {
-            type: 'text',
-            text:
-              '您好 👋 我是 AI 客服助理。\n請先選擇您遇到的問題類型，或直接輸入問題。',
-            quickReply: level1QuickReplies
-          }
+  userMessage === '呼叫AI客服' ||
+  userMessage === 'AI客服' ||
+  userMessage === 'AI 客服'
+) {
+  // 切回 AI 模式
+  await supabase
+    .from('user_states')
+    .upsert({
+      line_user_id: userId,
+      is_human_mode: false,
+      last_ai_reset_at: new Date().toISOString()
+    });
+
+  await lineClient.replyMessage(
+    lineEvent.replyToken,
+    {
+      type: 'text',
+      text:
+        '您好 👋 我是 AI 客服助理。\n請先選擇您遇到的問題類型，或直接輸入問題。',
+      quickReply: level1QuickReplies
+    }
+  );
+
+  continue;
+}
         );
 
         continue;
