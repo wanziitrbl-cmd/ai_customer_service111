@@ -681,31 +681,27 @@ export const handler: Handler = async (event) => {
       // ==============================
 
       if (
-  userMessage === '呼叫AI客服' ||
-  userMessage === 'AI客服' ||
-  userMessage === 'AI 客服'
-) {
-  // 切回 AI 模式
-  await supabase
-    .from('user_states')
-    .upsert({
-      line_user_id: userId,
-      is_human_mode: false,
-      last_ai_reset_at: new Date().toISOString()
-    });
+        userMessage === '呼叫AI客服' ||
+        userMessage === 'AI客服' ||
+        userMessage === 'AI 客服'
+      ) {
+        // 使用者主動呼叫 AI 客服時，立即切回 AI 模式
+        await supabase
+          .from('user_states')
+          .upsert({
+            line_user_id: userId,
+            is_human_mode: false,
+            last_ai_reset_at: new Date().toISOString()
+          });
 
-  await lineClient.replyMessage(
-    lineEvent.replyToken,
-    {
-      type: 'text',
-      text:
-        '您好 👋 我是 AI 客服助理。\n請先選擇您遇到的問題類型，或直接輸入問題。',
-      quickReply: level1QuickReplies
-    }
-  );
-
-  continue;
-}
+        await lineClient.replyMessage(
+          lineEvent.replyToken,
+          {
+            type: 'text',
+            text:
+              '您好 👋 我是 AI 客服助理。\n請先選擇您遇到的問題類型，或直接輸入問題。',
+            quickReply: level1QuickReplies
+          }
         );
 
         continue;
@@ -1075,17 +1071,16 @@ ${
 }
 
 【回答規則】
-1. 必須優先依照參考資料回答。
-2. 不可自行編造參考資料中沒有的操作方式、功能或規則。
-3. 如果目前參考資料不足以確認答案，不要直接說「資料不足」、「不知道」或「無法回答」。
-4. 請改用友善、自然的方式說明，例如：
-   「這個情況可能需要再確認一些細節，為了避免提供錯誤資訊，建議由客服人員進一步協助您確認。」
-5. 若問題涉及金流、帳號權限、資料異常、系統嚴重異常或需要後台人工操作，應優先建議由真人客服協助。
-6. 不要重複整份參考資料。
-7. 使用繁體中文。
-8. 回答保持簡潔，原則上 3～6 句或最多 5 個操作步驟。
-9. 不要求使用者提供密碼、驗證碼、完整信用卡號等敏感資料。
-10. 語氣保持友善、專業，不要讓使用者感覺被直接拒絕。
+1. 必須優先依照參考資料回答，回答前先完整檢查是否有相同或語意相近的問題。
+2. 若找到相關資料，必須優先使用其中的實際操作路徑、步驟與注意事項，不可用推測取代。
+3. 不可自行編造參考資料中沒有的操作方式、功能、按鈕、路徑或規則。
+4. 若目前資訊不足以確認答案，不要說「參考資料沒有提到」、「知識庫沒有資料」、「資料不足」、「不知道」或「無法回答」。
+5. 若可以進一步判斷，先詢問一個最必要的資訊，例如錯誤訊息、操作步驟或設備狀況。
+6. 若仍需進一步確認，請自然地說明：「這個情況可能需要再確認一下實際狀況，為了避免提供錯誤資訊，建議由客服人員進一步協助您確認。」
+7. 若問題涉及金流、帳號權限、資料異常、系統嚴重異常或需要後台人工操作，可優先建議由真人客服協助。
+8. 不要重複整份參考資料，也不要向使用者提及「參考資料」、「知識庫」或內部判斷流程。
+9. 使用繁體中文，回答保持簡潔，原則上 3～6 句或最多 5 個操作步驟。
+10. 不要求使用者提供密碼、驗證碼、完整信用卡號等敏感資料。
 `.trim();
 
   const isGPT5 =
