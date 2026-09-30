@@ -34,11 +34,11 @@ function quickReplyItem(label: string, text?: string) {
 
 const level1QuickReplies = {
   items: [
-    quickReplyItem('POS操作'),
-    quickReplyItem('帳號/後台問題'),
-    quickReplyItem('線上金流'),
-    quickReplyItem('故障排除'),
-    quickReplyItem('帳號問題')
+    quickReplyItem('🧾 POS操作', 'POS操作'),
+    quickReplyItem('👤 帳號/後台問題', '帳號/後台問題'),
+    quickReplyItem('💰 線上金流', '線上金流'),
+    quickReplyItem('🔧 故障排除', '故障排除'),
+    quickReplyItem('🔑 帳號問題', '帳號問題')
   ]
 };
 
@@ -52,13 +52,13 @@ const level2Menus: Record<string, any> = {
     text: '請選擇 POS 操作相關分類：',
     quickReply: {
       items: [
-        quickReplyItem('商品管理'),
-        quickReplyItem('帳務/系統日'),
-        quickReplyItem('平台串接'),
-        quickReplyItem('結帳/服務費'),
-        quickReplyItem('支付方式'),
-        quickReplyItem('線上點餐'),
-        quickReplyItem('系統發布'),
+        quickReplyItem('🛍️ 商品管理', '商品管理'),
+        quickReplyItem('📅 帳務/系統日', '帳務/系統日'),
+        quickReplyItem('🔗 平台串接', '平台串接'),
+        quickReplyItem('🧾 結帳/服務費', '結帳/服務費'),
+        quickReplyItem('💳 支付方式', '支付方式'),
+        quickReplyItem('📱 線上點餐', '線上點餐'),
+        quickReplyItem('🚀 系統發布', '系統發布'),
         quickReplyItem('返回主選單', '呼叫AI客服')
       ]
     }
@@ -68,8 +68,8 @@ const level2Menus: Record<string, any> = {
     text: '請選擇帳號／後台問題分類：',
     quickReply: {
       items: [
-        quickReplyItem('員工管理'),
-        quickReplyItem('登入帳號問題'),
+        quickReplyItem('👥 員工管理', '員工管理'),
+        quickReplyItem('🔐 登入帳號問題', '登入帳號問題'),
         quickReplyItem('返回主選單', '呼叫AI客服')
       ]
     }
@@ -79,7 +79,7 @@ const level2Menus: Record<string, any> = {
     text: '請選擇線上金流問題：',
     quickReply: {
       items: [
-        quickReplyItem('線上金流', '二層：線上金流'),
+        quickReplyItem('💰 線上金流', '二層：線上金流'),
         quickReplyItem('返回主選單', '呼叫AI客服')
       ]
     }
@@ -89,8 +89,8 @@ const level2Menus: Record<string, any> = {
     text: '請選擇故障排除分類：',
     quickReply: {
       items: [
-        quickReplyItem('出單/貼紙機設定', '出單（貼紙）機設定'),
-        quickReplyItem('故障排除', '二層：故障排除'),
+        quickReplyItem('🖨️ 出單/貼紙機設定', '出單（貼紙）機設定'),
+        quickReplyItem('🛠️ 故障排除', '二層：故障排除'),
         quickReplyItem('返回主選單', '呼叫AI客服')
       ]
     }
@@ -100,7 +100,7 @@ const level2Menus: Record<string, any> = {
     text: '請選擇帳號問題：',
     quickReply: {
       items: [
-        quickReplyItem('故障排除', '帳號問題：故障排除'),
+        quickReplyItem('🛠️ 故障排除', '帳號問題：故障排除'),
         quickReplyItem('返回主選單', '呼叫AI客服')
       ]
     }
